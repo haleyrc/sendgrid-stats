@@ -14,7 +14,7 @@ exports.sendgridEvent = functions.https.onRequest((req, res) => {
     if (error) {
       console.error("Error sending stats:", error)
     } else {
-      console.log(`Sent ${eventName} successfully.`)
+      console.log(`Sent ${events} successfully.`)
     }
     res.status(200).end()
   })
