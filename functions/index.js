@@ -1,5 +1,5 @@
 const functions = require("firebase-functions")
-const admin = require('firebase-admin')
+const admin = require("firebase-admin")
 admin.initializeApp(functions.config().firebase)
 
 const db = admin.database()
@@ -15,15 +15,15 @@ const client = new StatsD({
 exports.sendgridEvent = functions.https.onRequest(async (req, res) => {
   try {
     const promises = req.body.map((event) => {
-      const {email, sg_event_id} = event
+      const { email, sg_event_id } = event
       const id = encodeEmail(email)
       return db
-      .ref(`${id}/events`)
-      .child(sg_event_id)
-      .set(event)
+        .ref(`${id}/events`)
+        .child(sg_event_id)
+        .set(event)
     })
     await Promise.all(promises)
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 
@@ -40,6 +40,6 @@ exports.sendgridEvent = functions.https.onRequest(async (req, res) => {
 
 function encodeEmail(email) {
   let buff = new Buffer(email)
-  let base64data = buff.toString('base64')
+  let base64data = buff.toString("base64")
   return base64data
 }
