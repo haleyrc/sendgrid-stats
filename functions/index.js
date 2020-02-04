@@ -31,8 +31,6 @@ exports.sendgridEvent = functions.https.onRequest(async (req, res) => {
   client.increment(events, (error) => {
     if (error) {
       console.error("Error sending stats:", error)
-    } else {
-      console.log(`Sent ${events} successfully.`)
     }
     res.status(200).end()
   })
